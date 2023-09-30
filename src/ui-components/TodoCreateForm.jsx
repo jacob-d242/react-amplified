@@ -6,7 +6,13 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  TextAreaField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
 import { API } from "aws-amplify";
@@ -122,7 +128,12 @@ export default function TodoCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Name"
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Name</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
         isRequired={true}
         isReadOnly={false}
         value={name}
@@ -146,11 +157,10 @@ export default function TodoCreateForm(props) {
         hasError={errors.name?.hasError}
         {...getOverrideProps(overrides, "name")}
       ></TextField>
-      <TextField
+      <TextAreaField
         label="Description"
         isRequired={false}
         isReadOnly={false}
-        value={description}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -170,7 +180,7 @@ export default function TodoCreateForm(props) {
         errorMessage={errors.description?.errorMessage}
         hasError={errors.description?.hasError}
         {...getOverrideProps(overrides, "description")}
-      ></TextField>
+      ></TextAreaField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
